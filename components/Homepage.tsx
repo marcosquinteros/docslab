@@ -48,7 +48,7 @@ export default function Homepage() {
               <h3 className="text-lg font-bold">Invoices</h3>
               <p className="text-muted-foreground">Create professional-looking invoices for your clients.</p>
               <Link
-                href="#"
+                href="/generator/invoices"
                 className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -57,10 +57,10 @@ export default function Homepage() {
             </div>
             <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
               <ContactIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Contracts</h3>
-              <p className="text-muted-foreground">Create custom contracts for your business agreements.</p>
+              <h3 className="text-lg font-bold">Appointments</h3>
+              <p className="text-muted-foreground">Create custom appointments confirmations for your business meetings.</p>
               <Link
-                href="#"
+                href="/generator/appointments"
                 className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -68,11 +68,11 @@ export default function Homepage() {
               </Link>
             </div>
             <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <PresentationIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Proposals</h3>
-              <p className="text-muted-foreground">Create professional proposals to win new business.</p>
+              <ReceiptIcon className="h-8 w-8" />
+              <h3 className="text-lg font-bold">Receipts</h3>
+              <p className="text-muted-foreground">Create professional-looking receipts for your customers.</p>
               <Link
-                href="#"
+                href="/generator/receipts"
                 className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -91,18 +91,7 @@ export default function Homepage() {
                 Generate
               </Link>
             </div>
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <ReceiptIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Receipts</h3>
-              <p className="text-muted-foreground">Create professional-looking receipts for your customers.</p>
-              <Link
-                href="#"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
+            
             <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
               <LockIcon className="h-8 w-8" />
               <h3 className="text-lg font-bold">Leases</h3>
