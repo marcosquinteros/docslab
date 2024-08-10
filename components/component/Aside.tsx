@@ -18,7 +18,7 @@ export function Aside() {
 
   return (
     <aside className="hidden w-64 flex-col border-r bg-background p-4 md:flex">
-      <div className="h-12">
+      {/* <div className="h-12">
         <Link
           href="/"
           className="flex items-center gap-2 font-semibold"
@@ -32,7 +32,7 @@ export function Aside() {
           />
         </Link>
       </div>
-      <Separator />
+      <Separator /> */}
       <nav className="mt-8 flex flex-col gap-2">
         <Link
           href="/generator/invoices"

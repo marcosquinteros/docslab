@@ -94,6 +94,7 @@ export function Appointments() {
 
                   <div className="flex w-full justify-end">
                     <button
+                    type="button"
                       onClick={handleClick}
                       className="p-1 bg-gray-200 rounded-full"
                       aria-label="Upload Logo"
@@ -134,7 +135,7 @@ export function Appointments() {
                 <Label htmlFor="patient-name">Client Name</Label>
                 <Input
                   id="patient-name"
-                  placeholder="Enter patient name"
+                  placeholder="Enter client name"
                   value={patientName}
                   onChange={(e) => {
                     setConfirmationPatientName(e.target.value);

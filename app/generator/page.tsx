@@ -1,8 +1,9 @@
-import Image from "next/image";
-export default function Generator() {
+import { Generator } from "@/components/component/generator";
+
+export default function GeneratorP() {
   return (
-    <main className="w-full border h-screen">
-      
+    <main className="w-full ">
+      <Generator/>
     </main>
   );
 }

@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import generatePDF from "react-to-pdf";
 import Image from "next/image";
@@ -14,7 +14,7 @@ export function Receipt() {
   const [orderItems, setOrderItems] = useState([
     { id: 1, name: "Item 1", quantity: 1, price: 9.99 },
   ]);
-  const [customerName, setCustomerName] = useState("John Doe");
+  const [customerName, setCustomerName] = useState("");
   const addItem = () => {
     setOrderItems([
       ...orderItems,
@@ -65,113 +65,130 @@ export function Receipt() {
   };
   return (
     <div className="p-6">
-      <div className=" flex flex-row gap-3">
-        <div className="border rounded-lg p-5 max-w-7xl">
-          <h2 className="text-2xl font-bold mb-4">Receipt Generator</h2>
-          <form className="space-y-4">
-            <div className="relative" onClick={handleClick}>
-              <label htmlFor="customer-name" className="block font-medium mb-1">
-                Your Logo
-              </label>
-              <div className="flex items-baseline">
-                <div>
-                  <Image
-                    src={logo || imgplaceholder}
-                    width={50}
-                    height={50}
-                    alt="Company Logo"
-                    style={{ aspectRatio: "1 / 1", objectFit: "contain" }}
-                  />
-                  <input
-                    id="logoInput"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleLogoChange}
-                    className="hidden"
-                  />
-                </div>
-                <div>
-                  <button
-                    onClick={handleClick}
-                    className="p-1 bg-gray-200 rounded-full"
-                    aria-label="Upload Logo"
-                  >
-                    <PlusIcon size={16} />
-                  </button>
-                </div>
-              </div>
-            </div>
+      <div className="flex gap-3">
+        <Card className="max-w-5xl rounded-lg p-5">
+          <CardContent className="grid">
             <div>
-              <label htmlFor="customer-name" className="block font-medium mb-1">
-                Customer Name
-              </label>
-              <Input
-                id="customer-name"
-                value={customerName}
-                onChange={updateCustomerName}
-                placeholder="Enter customer name"
-              />
+
+            <h2 className="text-2xl font-bold mb-4">Receipt Generator</h2>
             </div>
-            <div>
-              <label htmlFor="order-items" className="block font-medium mb-1">
-                Order Items
-              </label>
-              <div className="space-y-2">
-                {orderItems.map((item) => (
-                  <div key={item.id} className="flex items-center gap-4">
-                    <Input
-                      id={`item-${item.id}-name`}
-                      value={item.name}
-                      onChange={(e) =>
-                        updateItem(item.id, "name", e.target.value)
-                      }
-                      placeholder="Item name"
+            <Separator/>
+            <form className="space-y-4">
+              <div className="relative mt-5">
+                <label
+                  htmlFor="customer-name"
+                  className="block font-medium mb-1"
+                >
+                  Your Logo
+                </label>
+                <div className="flex items-baseline">
+                  <div>
+                    <Image
+                      src={logo || imgplaceholder}
+                      width={50}
+                      height={50}
+                      alt="Company Logo"
+                      style={{ aspectRatio: "1 / 1", objectFit: "contain" }}
                     />
-                    <Input
-                      id={`item-${item.id}-quantity`}
-                      type="number"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        updateItem(
-                          item.id,
-                          "quantity",
-                          parseInt(e.target.value)
-                        )
-                      }
-                      placeholder="Quantity"
+                    <input
+                      id="logoInput"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoChange}
+                      className="hidden"
                     />
-                    <Input
-                      id={`item-${item.id}-price`}
-                      type="number"
-                      value={item.price}
-                      onChange={(e) =>
-                        updateItem(item.id, "price", parseFloat(e.target.value))
-                      }
-                      placeholder="Price"
-                    />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => removeItem(item.id)}
-                    >
-                      <TrashIcon className="h-4 w-4" />
-                    </Button>
                   </div>
-                ))}
+                  <div>
+                    <button
+                      type="button"
+                      onClick={handleClick}
+                      className="p-1 bg-gray-200 rounded-full"
+                      aria-label="Upload Logo"
+                    >
+                      <PlusIcon size={16} />
+                    </button>
+                  </div>
+                </div>
               </div>
-              <Button
-                variant="outline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  addItem();
-                }}
-                className="mt-2"
-              >
-                Add Item
-              </Button>
-            </div>
-          </form>
-        </div>
+              <div>
+                <label
+                  htmlFor="customer-name"
+                  className="block font-medium mb-1"
+                >
+                  Customer Name
+                </label>
+                <Input
+                  id="customer-name"
+                  value={customerName}
+                  onChange={updateCustomerName}
+                  placeholder="Enter customer name"
+                />
+              </div>
+              <div>
+                <label htmlFor="order-items" className="block font-medium mb-1">
+                  Order Items
+                </label>
+                <div className="space-y-2">
+                  {orderItems.map((item) => (
+                    <div key={item.id} className="flex items-center gap-4">
+                      <Input
+                        id={`item-${item.id}-name`}
+                        value={item.name}
+                        onChange={(e) =>
+                          updateItem(item.id, "name", e.target.value)
+                        }
+                        placeholder="Item name"
+                      />
+                      <Input
+                        id={`item-${item.id}-quantity`}
+                        type="number"
+                        value={item.quantity}
+                        onChange={(e) =>
+                          updateItem(
+                            item.id,
+                            "quantity",
+                            parseInt(e.target.value)
+                          )
+                        }
+                        placeholder="Quantity"
+                      />
+                      <Input
+                        id={`item-${item.id}-price`}
+                        type="number"
+                        value={item.price}
+                        onChange={(e) =>
+                          updateItem(
+                            item.id,
+                            "price",
+                            parseFloat(e.target.value)
+                          )
+                        }
+                        placeholder="Price"
+                      />
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => removeItem(item.id)}
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addItem();
+                  }}
+                  className="mt-2"
+                >
+                  Add Item
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
         <div className="w-full border rounded-lg p-5">
           <h2 className="text-2xl font-bold mb-4">Receipt Preview</h2>
           <div className=" w-full items-center">
@@ -226,9 +243,9 @@ export function Receipt() {
               </div>
             </Card>
           </div>
-      <div className="w-full flex justify-end my-6">
-        <Button onClick={handleDownload}>Download</Button>
-      </div>
+          <div className="w-full flex justify-end my-6">
+            <Button onClick={handleDownload}>Download</Button>
+          </div>
         </div>
       </div>
     </div>
