@@ -1,4 +1,5 @@
 
+import { CircleDollarSign, FileChartColumn } from "lucide-react"
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 
@@ -80,11 +81,11 @@ export default function Homepage() {
               </Link>
             </div>
             <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <ActivityIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Agreements</h3>
+              <CircleDollarSign className="h-8 w-8" />
+              <h3 className="text-lg font-bold">Expenses Report</h3>
               <p className="text-muted-foreground">Create custom agreements for your business needs.</p>
               <Link
-                href="#"
+                href="/generator/expenses"
                 className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
@@ -93,41 +94,18 @@ export default function Homepage() {
             </div>
             
             <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <LockIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Leases</h3>
+              <FileChartColumn className="h-8 w-8" />
+              <h3 className="text-lg font-bold">Quotations</h3>
               <p className="text-muted-foreground">Create custom lease agreements for your rental properties.</p>
               <Link
-                href="#"
+                href="/generator/quotes"
                 className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
                 Generate
               </Link>
             </div>
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <DotIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">NDAs</h3>
-              <p className="text-muted-foreground">Create non-disclosure agreements to protect your business.</p>
-              <Link
-                href="#"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <OptionIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Offers</h3>
-              <p className="text-muted-foreground">Create custom offer letters for your job candidates.</p>
-              <Link
-                href="#"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
+            
           </div>
         </section>
       </main>

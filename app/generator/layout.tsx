@@ -1,6 +1,11 @@
+import { ReactNode } from "react";
 import { Aside } from "@/components/component/Aside";
 
-export default function Layout({ children }) {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex">
       <Aside />

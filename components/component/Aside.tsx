@@ -7,7 +7,8 @@ import {
   ContactIcon,
   FileIcon,
   ReceiptIcon,
-  CircleDollarSign
+  CircleDollarSign,
+  FileChartColumn
 } from "lucide-react";
 import Image from "next/image";
 import doclabslogo from "@/public/docslablogo.svg";
@@ -78,6 +79,18 @@ export function Aside() {
         >
           <CircleDollarSign className="h-5 w-5" />
           Expenses Report
+        </Link>
+        <Link
+          href="/generator/quotes"
+          className={clsx(
+            "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground",
+            { 'bg-muted text-foreground': pathname === '/generator/quotes' }
+          )}
+          prefetch={false}
+        >
+          
+          <FileChartColumn className="h-5 w-5"/>
+          Quotes
         </Link>
       </nav>
     </aside>
