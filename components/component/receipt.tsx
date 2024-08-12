@@ -189,10 +189,10 @@ export function Receipt() {
             </form>
           </CardContent>
         </Card>
-        <div className="w-full border rounded-lg p-5">
+        <div className="w-full border rounded-lg p-5" id="receipt" ref={targetRef}>
           <h2 className="text-2xl font-bold mb-4">Receipt Preview</h2>
           <div className=" w-full items-center">
-            <Card className="p-6 w-full" id="receipt" ref={targetRef}>
+            <Card className="p-6 w-full" >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-bold">Receipt</h3>
                 {logo && (
