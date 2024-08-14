@@ -28,7 +28,7 @@ export function Quotes() {
   const [validityDate, setValidityDate] = useState("");
   const [description, setDescription] = useState("");
   const [logo, setLogo] = useState(null);
-  const handleLogoChange = (e) => {
+  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -55,11 +55,11 @@ export function Quotes() {
     ]);
   };
 
-  const removeItem = (id) => {
+  const removeItem = (id: any) => {
     setQuote(quote.filter((item) => item.id !== id));
   };
 
-  const updateItem = (id, field, value) => {
+  const updateItem = (id: any, field: string, value: string | number) => {
     setQuote(
       quote.map((item) => (item.id === id ? { ...item, [field]: value } : item))
     );

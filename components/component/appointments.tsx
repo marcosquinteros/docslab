@@ -32,7 +32,7 @@ export function Appointments() {
   const [logo, setLogo] = useState(null);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  const handleLogoChange = (e) => {
+  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {

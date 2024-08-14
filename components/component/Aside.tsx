@@ -35,18 +35,7 @@ export function Aside() {
         </Link>
       </div>
       <Separator /> */}
-      <nav className="mt-8 flex flex-col gap-2">
-        <Link
-          href="/generator/invoices"
-          className={clsx(
-            "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground",
-            { 'bg-muted text-foreground': pathname === '/generator/invoices' }
-          )}
-          prefetch={false}
-        >
-          <ReceiptIcon className="h-5 w-5" />
-          Invoices
-        </Link>
+      <nav className=" flex flex-col gap-2">
         <Link
           href="/generator/receipts"
           className={clsx(
@@ -57,6 +46,17 @@ export function Aside() {
         >
           <ReceiptIcon className="h-5 w-5" />
           Receipts
+        </Link>
+        <Link
+          href="/generator/invoices"
+          className={clsx(
+            "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground",
+            { 'bg-muted text-foreground': pathname === '/generator/invoices' }
+          )}
+          prefetch={false}
+        >
+          <ReceiptIcon className="h-5 w-5" />
+          Invoices
         </Link>
         <Link
           href="/generator/appointments"

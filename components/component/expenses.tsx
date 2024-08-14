@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, SetStateAction } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import imgplaceholder from "../../public/imgplaceholder.png";
@@ -51,7 +51,7 @@ export function Expenses() {
   const [editingExpenseId, setEditingExpenseId] = useState(null);
   const [editingExpenseData, setEditingExpenseData] = useState(null);
   const targetRef = useRef<HTMLDivElement | null>(null);
-  const handleLogoChange = (e) => {
+  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -81,7 +81,7 @@ export function Expenses() {
     });
   };
 
-  const handleEditExpense = (expense) => {
+  const handleEditExpense = (expense: SetStateAction<null>) => {
     setEditingExpenseId(expense.id);
     setEditingExpenseData({ ...expense });
   };
@@ -100,7 +100,7 @@ export function Expenses() {
     setEditingExpenseId(null);
     setEditingExpenseData(null);
   };
-  const handleDeleteExpense = (id) => {
+  const handleDeleteExpense = (id: any) => {
     setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 

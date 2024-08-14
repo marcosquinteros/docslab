@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useRef, useState } from "react";
+import { JSX, SVGProps, use, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
 import generatePDF from "react-to-pdf";
@@ -19,7 +19,7 @@ export function Invoices() {
   const [clientAddress, setClientAddress] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [logo, setLogo] = useState(null);
-  const handleLogoChange = (e) => {
+  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -60,12 +60,12 @@ export function Invoices() {
       },
     ]);
   };
-  const removeItem = (index) => {
+  const removeItem = (index: number) => {
     const newItems = [...items];
     newItems.splice(index, 1);
     setItems(newItems);
   };
-  const updateItem = (index, field, value) => {
+  const updateItem = (index: number, field: string, value: string | number) => {
     const newItems = [...items];
     newItems[index][field] = value;
     setItems(newItems);
@@ -316,7 +316,7 @@ export function Invoices() {
   );
 }
 
-function TrashIcon(props) {
+function TrashIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

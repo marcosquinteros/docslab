@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { SetStateAction, JSX, SVGProps, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,11 +21,11 @@ export function Receipt() {
       { id: orderItems.length + 1, name: "", quantity: 1, price: 0 },
     ]);
   };
-  const removeItem = (id) => {
+  const removeItem = (id: number) => {
     setOrderItems(orderItems.filter((item) => item.id !== id));
   };
   const [logo, setLogo] = useState(null);
-  const handleLogoChange = (e) => {
+  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -37,14 +37,14 @@ export function Receipt() {
   const handleClick = () => {
     document.getElementById("logoInput").click();
   };
-  const updateItem = (id, field, value) => {
+  const updateItem = (id: number, field: string, value: string | number) => {
     setOrderItems(
       orderItems.map((item) =>
         item.id === id ? { ...item, [field]: value } : item
       )
     );
   };
-  const updateCustomerName = (e) => {
+  const updateCustomerName = (e: { target: { value: SetStateAction<string>; }; }) => {
     setCustomerName(e.target.value);
   };
   const total = orderItems.reduce(
@@ -252,7 +252,7 @@ export function Receipt() {
   );
 }
 
-function TrashIcon(props) {
+function TrashIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
