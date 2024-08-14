@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 export default function quotes() {
   return (
-    <main className="w-full h-screen flex justify-center">
+    <main className="w-full  flex justify-center">
       {/* <Suspense fallback={<AppointmentSkeleton className="w-full"/>}> */}
         <Quotes />
       {/* </Suspense> */}

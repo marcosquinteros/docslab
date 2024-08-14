@@ -1,12 +1,17 @@
 
 import { CircleDollarSign, FileChartColumn } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
-
+import invoice from '@/public/invoice.png'
+import receipt from '@/public/receipt.png'
+import appointment from '@/public/appointment.png'
+import expense from '@/public/expense.png'
+import quote from '@/public/quote.png'
 
 export default function Homepage() {
   return (
-    <div className="flex flex-col min-h-[100dvh]">
+    <div className="flex  flex-col min-h-[100dvh]">
       
       <main className="flex-1">
         <section className="w-full pt-12 md:pt-24 lg:pt-32 border-y">
@@ -42,70 +47,106 @@ export default function Homepage() {
             </div>
           </div>
         </section>
+        
         <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container grid gap-8 px-4 md:px-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <ReceiptIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Invoices</h3>
-              <p className="text-muted-foreground">Create professional-looking invoices for your clients.</p>
-              <Link
-                href="/generator/invoices"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <ContactIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Appointments</h3>
-              <p className="text-muted-foreground">Create custom appointments confirmations for your business meetings.</p>
-              <Link
-                href="/generator/appointments"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <ReceiptIcon className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Receipts</h3>
-              <p className="text-muted-foreground">Create professional-looking receipts for your customers.</p>
-              <Link
-                href="/generator/receipts"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <CircleDollarSign className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Expenses Report</h3>
-              <p className="text-muted-foreground">Create custom agreements for your business needs.</p>
-              <Link
-                href="/generator/expenses"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
-            
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-muted p-6 hover:bg-accent hover:text-accent-foreground transition-colors">
-              <FileChartColumn className="h-8 w-8" />
-              <h3 className="text-lg font-bold">Quotations</h3>
-              <p className="text-muted-foreground">Create custom lease agreements for your rental properties.</p>
-              <Link
-                href="/generator/quotes"
-                className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                Generate
-              </Link>
-            </div>
-            
+          <div className="container grid gap-6 px-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-10 md:px-6">
+            <Link
+              href="/generator/invoices"
+              className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+              prefetch={false}
+            >
+              <Image
+                src={invoice}
+                width={400}
+                height={300}
+                alt="Artwork 1"
+                className="aspect-[4/3] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-green-700 to-transparent p-4 transition-opacity duration-300 group-hover:opacity-0">
+                <div className="flex h-full flex-col justify-end">
+                  <h3 className="text-lg font-bold text-white">Invoices</h3>
+                  <p className="text-sm text-white/80">Create professional-looking invoices for your clients.</p>
+                </div>
+              </div>
+            </Link>
+            <Link
+              href="/generator/appointments"
+              className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+              prefetch={false}
+            >
+              <Image
+                src={appointment}
+                width={400}
+                height={300}
+                alt="Artwork 2"
+                className="aspect-[4/3] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-green-700 to-transparent p-4 transition-opacity duration-300 group-hover:opacity-0">
+                <div className="flex h-full flex-col justify-end">
+                  <h3 className="text-lg font-bold text-white">Appointments</h3>
+                  <p className="text-sm text-white/80">Create custom appointments confirmations for your business meetings.</p>
+                </div>
+              </div>
+            </Link>
+            <Link
+              href="/generator/receipts"
+              className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+              prefetch={false}
+            >
+              <Image
+                src={receipt}
+                width={400}
+                height={300}
+                alt="Artwork 3"
+                className="aspect-[4/3] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-green-700 to-transparent p-4 transition-opacity duration-300 group-hover:opacity-0">
+                <div className="flex h-full flex-col justify-end">
+                  <h3 className="text-lg font-bold text-white">Receipts</h3>
+                  <p className="text-sm text-white/80">Create professional-looking receipts for your customers.</p>
+                </div>
+              </div>
+            </Link>
+            <Link
+              href="/generator/expenses"
+              className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+              prefetch={false}
+            >
+              <Image
+                src={expense}
+                width={400}
+                height={300}
+                alt="Artwork 4"
+                className="aspect-[4/3] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-green-700 to-transparent p-4 transition-opacity duration-300 group-hover:opacity-0">
+                <div className="flex h-full flex-col justify-end">
+                  <h3 className="text-lg font-bold text-white">Expenses Report</h3>
+                  <p className="text-sm text-white/80">Create custom agreements for your business needs.</p>
+                </div>
+              </div>
+            </Link>
+            <Link
+              href="/generator/quotes"
+              className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+              prefetch={false}
+            >
+              <Image
+                src={quote}
+                width={400}
+                height={300}
+                alt="Artwork 5"
+                className="aspect-[4/3] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-green-700 to-transparent p-4 transition-opacity duration-300 group-hover:opacity-0">
+                
+                <div className="flex h-full flex-col justify-end">
+                  <h3 className="text-lg font-bold text-white">Quotations</h3>
+                  <p className="text-sm text-white/80">Create custom lease agreements for your rental properties.</p>
+                </div>
+              </div>
+            </Link>
+          
           </div>
         </section>
       </main>
