@@ -1,55 +1,73 @@
 "use client";
 
-import { JSX, SVGProps, use, useRef, useState } from "react";
+import { SVGProps, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
-import generatePDF from "react-to-pdf";
-import imgplaceholder from '../../public/imgplaceholder.png'
+import  generatePDF  from "react-to-pdf";
+import imgplaceholder from '../../public/imgplaceholder.png';
 import Image from "next/image";
+
+interface Item {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
 export function Invoices() {
-  const [businessName, setBusinessName] = useState("Name Inc.");
-  const [address, setAddress] = useState("123 Main St, Anytown USA");
-  const [email, setEmail] = useState("support@acme.com");
-  const [phone, setPhone] = useState("(555) 555-5555");
-  const [issuedDate, setIssuedDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [invoiceNumber, setinvoiceNumber] = useState("000");
-  const [clientName, setClientName] = useState("");
-  const [clientEmail, setClientEmail] = useState("");
-  const [clientAddress, setClientAddress] = useState("");
-  const [clientPhone, setClientPhone] = useState("");
-  const [logo, setLogo] = useState(null);
-  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
+  const [businessName, setBusinessName] = useState<string>("Name Inc.");
+  const [address, setAddress] = useState<string>("123 Main St, Anytown USA");
+  const [email, setEmail] = useState<string>("support@acme.com");
+  const [phone, setPhone] = useState<string>("(555) 555-5555");
+  const [issuedDate, setIssuedDate] = useState<string>("");
+  const [dueDate, setDueDate] = useState<string>("");
+  const [invoiceNumber, setInvoiceNumber] = useState<string>("000");
+  const [clientName, setClientName] = useState<string>("");
+  const [clientEmail, setClientEmail] = useState<string>("");
+  const [clientAddress, setClientAddress] = useState<string>("");
+  const [clientPhone, setClientPhone] = useState<string>("");
+  const [logo, setLogo] = useState<string | null>(null);
+  
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setLogo(e.target.result);
+        if (e.target) {
+          setLogo(e.target.result as string);
+        }
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+
   const handleClick = () => {
-    document.getElementById("logoInput").click();
+    document.getElementById("logoInput")?.click();
   };
-  const [items, setItems] = useState([
+
+  const [items, setItems] = useState<Item[]>([
     {
       name: "New Item",
       quantity: 1,
       price: 0,
     },
   ]);
-  const [paymentTerms, setPaymentTerms] = useState("Next 30 days");
-  const [notes, setNotes] = useState("Additional information or instructions");
-  const calculateSubtotal = () => {
+
+  const [paymentTerms, setPaymentTerms] = useState<string>("Next 30 days");
+  const [notes, setNotes] = useState<string>("Additional information or instructions");
+
+  const calculateSubtotal = (): number => {
     return items.reduce((total, item) => total + item.quantity * item.price, 0);
   };
+
   const targetRef = useRef<HTMLDivElement | null>(null);
-  const calculateTax = () => {
+
+  const calculateTax = (): number => {
     return calculateSubtotal() * 0.1;
   };
-  const calculateTotal = () => {
+
+  const calculateTotal = (): number => {
     return calculateSubtotal();
   };
+
   const addItem = () => {
     setItems([
       ...items,
@@ -60,16 +78,19 @@ export function Invoices() {
       },
     ]);
   };
+
   const removeItem = (index: number) => {
     const newItems = [...items];
     newItems.splice(index, 1);
     setItems(newItems);
   };
-  const updateItem = (index: number, field: string, value: string | number) => {
+
+  const updateItem = (index: number, field: keyof Item, value: string | number) => {
     const newItems = [...items];
-    newItems[index][field] = value;
+    newItems[index] = { ...newItems[index], [field]: value };
     setItems(newItems);
   };
+
   const handleDownload = () => {
     if (targetRef.current) {
       generatePDF(targetRef, {
@@ -143,7 +164,7 @@ export function Invoices() {
               <input
                 className="text-2xl font-bold border-b max-w-20"
                 value={invoiceNumber}
-                onChange={(e) => setinvoiceNumber(e.target.value)}
+                onChange={(e) => setInvoiceNumber(e.target.value)}
               />
             </div>
 

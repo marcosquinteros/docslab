@@ -18,31 +18,33 @@ import { PlusIcon } from "lucide-react";
 import generatePDF from "react-to-pdf";
 
 export function Appointments() {
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState<string | undefined>(undefined);
   const [time, setTime] = useState("");
   const [patientName, setPatientName] = useState("");
   const [providerName, setProviderName] = useState("");
   const [location, setLocation] = useState("");
-  const [confirmationDate, setConfirmationDate] = useState();
+  const [confirmationDate, setConfirmationDate] = useState<string | undefined>(undefined);
   const [confirmationTime, setConfirmationTime] = useState("");
   const [confirmationPatientName, setConfirmationPatientName] = useState("");
   const [confirmationProviderName, setConfirmationProviderName] = useState("");
   const [confirmationLocation, setConfirmationLocation] = useState("");
   const [appointmentType, setAppointmentType] = useState("");
-  const [logo, setLogo] = useState(null);
+  const [logo, setLogo] = useState<string | null>(null);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setLogo(e.target.result);
+      reader.onload = (event) => {
+        if (event.target) {
+          setLogo(event.target.result as string);
+        }
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
   const handleClick = () => {
-    document.getElementById("logoInput").click();
+    document.getElementById("logoInput")?.click();
   };
   const handleDownload = () => {
     if (targetRef.current) {
@@ -94,7 +96,7 @@ export function Appointments() {
 
                   <div className="flex w-full justify-end">
                     <button
-                    type="button"
+                      type="button"
                       onClick={handleClick}
                       className="p-1 bg-gray-200 rounded-full"
                       aria-label="Upload Logo"
@@ -111,7 +113,7 @@ export function Appointments() {
                   <Input
                     id="date"
                     type="date"
-                    value={date}
+                    value={date ?? ""}
                     onChange={(e) => {
                       setConfirmationDate(e.target.value);
                       setDate(e.target.value);
@@ -170,7 +172,6 @@ export function Appointments() {
               <div className="space-y-2">
                 <Label htmlFor="appointment-type">Appointment Type</Label>
                 <Select
-                  id="appointment-type"
                   value={appointmentType}
                   onValueChange={(value) => setAppointmentType(value)}
                 >

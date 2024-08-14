@@ -19,27 +19,40 @@ import Image from "next/image";
 import imgplaceholder from "../../public/imgplaceholder.png";
 import generatePDF from "react-to-pdf";
 
+interface QuoteItem {
+  id: number;
+  item: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+}
+
 export function Quotes() {
-  const [quote, setQuote] = useState([]);
-  const [customerName, setCustomerName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [companyAddress, setCompanyAddress] = useState("");
-  const [customerAddress, setCustomerAddress] = useState("");
-  const [validityDate, setValidityDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [logo, setLogo] = useState(null);
-  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
+  const [quote, setQuote] = useState<QuoteItem[]>([]);
+  const [customerName, setCustomerName] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>("");
+  const [companyAddress, setCompanyAddress] = useState<string>("");
+  const [customerAddress, setCustomerAddress] = useState<string>("");
+  const [validityDate, setValidityDate] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [logo, setLogo] = useState<string | null>(null);
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setLogo(e.target.result);
+      reader.onload = (event) => {
+        if (event.target) {
+          setLogo(event.target.result as string);
+        }
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+
   const handleClick = () => {
-    document.getElementById("logoInput").click();
+    document.getElementById("logoInput")?.click();
   };
+
   const targetRef = useRef<HTMLDivElement | null>(null);
 
   const addItem = () => {
@@ -55,11 +68,15 @@ export function Quotes() {
     ]);
   };
 
-  const removeItem = (id: any) => {
+  const removeItem = (id: number) => {
     setQuote(quote.filter((item) => item.id !== id));
   };
 
-  const updateItem = (id: any, field: string, value: string | number) => {
+  const updateItem = (
+    id: number,
+    field: keyof QuoteItem,
+    value: string | number
+  ) => {
     setQuote(
       quote.map((item) => (item.id === id ? { ...item, [field]: value } : item))
     );
@@ -314,11 +331,11 @@ export function Quotes() {
               </div>
             </div>
           </CardContent>
-          <Separator/>
+          <Separator />
         </div>
         <div className="w-full flex justify-end my-6 px-4">
-            <Button onClick={handleDownload}>Download</Button>
-          </div>
+          <Button onClick={handleDownload}>Download</Button>
+        </div>
       </Card>
     </div>
   );

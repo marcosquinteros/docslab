@@ -24,19 +24,26 @@ export function Receipt() {
   const removeItem = (id: number) => {
     setOrderItems(orderItems.filter((item) => item.id !== id));
   };
-  const [logo, setLogo] = useState(null);
-  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
+  const [logo, setLogo] = useState<string | null>(null);
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setLogo(e.target.result);
+      reader.onload = (event) => {
+        if (event.target) {
+          setLogo(event.target.result as string);
+        }
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+  
+  
+  
   const handleClick = () => {
-    document.getElementById("logoInput").click();
+    document.getElementById("logoInput")?.click();
   };
+  
+
   const updateItem = (id: number, field: string, value: string | number) => {
     setOrderItems(
       orderItems.map((item) =>

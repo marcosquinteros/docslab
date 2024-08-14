@@ -38,41 +38,58 @@ import Image from "next/image";
 import { DatePickerWithRange } from "./DatePickerWithRange";
 import { DateRange } from "react-day-picker";
 
+interface Expense {
+  id: number;
+  date: string;
+  category: string;
+  amount: number;
+  description: string;
+}
+
 export function Expenses() {
-  const [expenses, setExpenses] = useState([]);
-  const [newExpense, setNewExpense] = useState({
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [newExpense, setNewExpense] = useState<Partial<Expense>>({
     date: "",
     category: "",
     amount: 0,
     description: "",
   });
-  const [logo, setLogo] = useState(null);
+  const [logo, setLogo] = useState<string | null>(null);
 
-  const [editingExpenseId, setEditingExpenseId] = useState(null);
-  const [editingExpenseData, setEditingExpenseData] = useState(null);
+  const [editingExpenseId, setEditingExpenseId] = useState<number | null>(null);
+  const [editingExpenseData, setEditingExpenseData] =
+    useState<Partial<Expense> | null>(null);
+
   const targetRef = useRef<HTMLDivElement | null>(null);
-  const handleLogoChange = (e: { target: { files: Blob[]; }; }) => {
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setLogo(e.target.result);
+        if (e.target) {
+          setLogo(e.target.result as string);
+        }
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
 
-  const [employeeName, setEmployeeName] = useState("");
-  const [reportDate, setReportDate] = useState("");
+  const [employeeName, setEmployeeName] = useState<string>("");
+  const [reportDate, setReportDate] = useState<string>("");
   const [reportRange, setReportRange] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
   });
 
   const handleClick = () => {
-    document.getElementById("logoInput").click();
+    document.getElementById("logoInput")?.click();
   };
+
   const handleAddExpense = () => {
-    setExpenses([...expenses, { ...newExpense, id: expenses.length + 1 }]);
+    setExpenses([
+      ...expenses,
+      { ...newExpense, id: expenses.length + 1 } as Expense,
+    ]);
     setNewExpense({
       date: "",
       category: "",
@@ -81,26 +98,31 @@ export function Expenses() {
     });
   };
 
-  const handleEditExpense = (expense: SetStateAction<null>) => {
+  const handleEditExpense = (expense: Expense) => {
     setEditingExpenseId(expense.id);
     setEditingExpenseData({ ...expense });
   };
+
   const handleSaveExpense = () => {
-    setExpenses(
-      expenses.map((expense) =>
-        expense.id === editingExpenseId
-          ? { ...expense, ...editingExpenseData }
-          : expense
-      )
-    );
-    setEditingExpenseId(null);
-    setEditingExpenseData(null);
+    if (editingExpenseId !== null && editingExpenseData) {
+      setExpenses(
+        expenses.map((expense) =>
+          expense.id === editingExpenseId
+            ? { ...expense, ...editingExpenseData }
+            : expense
+        )
+      );
+      setEditingExpenseId(null);
+      setEditingExpenseData(null);
+    }
   };
+
   const handleCancelEdit = () => {
     setEditingExpenseId(null);
     setEditingExpenseData(null);
   };
-  const handleDeleteExpense = (id: any) => {
+
+  const handleDeleteExpense = (id: number) => {
     setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 
@@ -195,7 +217,11 @@ export function Expenses() {
                   <Label>Report Period</Label>
                   <DatePickerWithRange
                     className="max-w-md"
-                    onChange={setReportRange}
+                    onChange={(range) => {
+                      if (range === undefined || "from" in range) {
+                        setReportRange(range);
+                      }
+                    }}
                   />
                 </div>
                 <Separator className="my-2" />
@@ -215,7 +241,6 @@ export function Expenses() {
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
                     <Select
-                      id="category"
                       value={newExpense.category}
                       onValueChange={(value) =>
                         setNewExpense({ ...newExpense, category: value })
@@ -266,12 +291,8 @@ export function Expenses() {
               </CardFooter>
             </Card>
 
-            <Card
-              className="w-8/12 h-auto flex flex-col "
-              
-            >
-              <div id="expense"
-              ref={targetRef}>
+            <Card className="w-8/12 h-auto flex flex-col ">
+              <div id="expense" ref={targetRef}>
                 <CardHeader>
                   <div className="flex justify-between items-center">
                     <CardTitle>Expense Report</CardTitle>
@@ -293,21 +314,20 @@ export function Expenses() {
                       <div>
                         <strong>Report from</strong> <div>{employeeName}</div>
                         <div className="flex flex-col mt-3">
-                            <strong>Report period</strong>
+                          <strong>Report period</strong>
                           <div>
                             <div>
-
-                            from{" "}
-                            {reportRange?.from
-                              ? format(reportRange.from, "LLL dd, yyyy")
-                              : "N/A"}{" "}
-                          </div>
-                          <div>
-                            to{" "}
-                            {reportRange?.to
-                              ? format(reportRange.to, "LLL dd, yyyy")
-                              : "N/A"}
-                              </div>
+                              from{" "}
+                              {reportRange?.from
+                                ? format(reportRange.from, "LLL dd, yyyy")
+                                : "N/A"}{" "}
+                            </div>
+                            <div>
+                              to{" "}
+                              {reportRange?.to
+                                ? format(reportRange.to, "LLL dd, yyyy")
+                                : "N/A"}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -459,11 +479,10 @@ export function Expenses() {
                     </div>
                   </div>
                 </footer>
-
               </div>
-          <div className="w-full flex justify-end my-6 px-4">
-            <Button onClick={handleDownload}>Download</Button>
-          </div>
+              <div className="w-full flex justify-end my-6 px-4">
+                <Button onClick={handleDownload}>Download</Button>
+              </div>
             </Card>
           </div>
         </div>
